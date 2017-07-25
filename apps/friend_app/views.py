@@ -20,9 +20,12 @@ def add(request):
     if not request.session["logged_in"]:
         messages.error(request, "Please log in.")
         return redirect("login:idx")
+    exclude = []
+    friends = Friends.objects.all().filter(user__id=request.session["user_id"])
+    for friend in friends:
+        exclude.append(friend.friend.id)
     data = {
-        "users": Users.objects.all().exclude(id=request.session["user_id"]),
-        "friends": Friends.objects.all().filter(user__id=request.session["user_id"])
+        "users": Users.objects.all().exclude(id=request.session["user_id"]).exclude(id__in=exclude),
     }
     return render(request, "friend_app/add.html", data)
 
