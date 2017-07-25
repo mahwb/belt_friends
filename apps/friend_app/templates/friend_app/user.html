@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Friends</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'login:lo' %}">Logout</a>
+        <a href="{% url 'friend:idx' %}">Go Back</a>
+    </nav>
+    <main>
+        User view count: {{friends|length}}
+        <h2>Friends</h2>
+        {% for friend in friends %}
+        {{friend.friend.first_name|capfirst}} {{friend.friend.last_name|capfirst}} <a href="{% url 'friend:del' id=friend.friend.id %}">Delete</a><br>
+        {% endfor %}
+    </main>
+</body>
+</html>

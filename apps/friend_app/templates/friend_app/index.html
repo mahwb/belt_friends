@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friends</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'login:lo' %}">Logout</a>
+    </nav>
+    <main>
+        <h1>Welcome {{request.session.first_name}}</h1>
+        <a href="{% url 'friend:user' %}">View all friends</a>
+        <a href="{% url 'friend:add' %}">Add friend</a>
+        <h2>Recent Friends</h2>
+        {% for friend in friends %}
+        {{friend.user.first_name|capfirst}} became friends with {{friend.friend.first_name|capfirst}} {{friend.friend.last_name|capfirst}}  - added {{ friend.created_at|timesince }} ago<br>
+        {% endfor %}
+    </main>
+    </main>
+    </body>
+</html>
